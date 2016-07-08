@@ -1,6 +1,6 @@
 //this works!!!!
 //gets data from server
-// run using  127.0.0.1:8080  http://localhost:8080/index.html
+// run using  127.0.0.1:8080/index.html  http://localhost:8080/index.html
 
 function fetchJSON(url) {
   return fetch(url).then(function(response) {
@@ -34,22 +34,57 @@ var marvel = marvelFactory({
 });
 
 
+
 var characterName = prompt("Input character name");
 
-marvel('/characters').then(function(json) {  //returns a promise, needs .then
-//  json.data.results.map(function(character){
+marvel('/characters').then(function(json) {
+//  this gets us the character(s) corresponding to the input name
   var singleCharacterArray = json.data.results.filter(function(character){
     var name = character.name;
-
       if (name.toLowerCase().indexOf(characterName.toLowerCase()) > -1) {
-        var id = character.id;
-        return character;
+        return character;  //return the character object
       }
   });
-  console.log(singleCharacterArray[0].thumbnail.path);  //http address
-  console.log(singleCharacterArray[0].thumbnail.extension);  //jpg
+// pick up the first character (object) in the array
+  var firstCharacter = singleCharacterArray[0];
+  console.log(firstCharacter);
+// put character-frame tag in the html, this is where eveything will go
+  var outputFrame =  document.querySelector('character-frame');
 
-//  firstone + "." + extension
+//declare the inner frame
+  var characterContainer = document.createElement('character');
+
+//pick up the first character's name
+  var charName = firstCharacter.name;
+//declare the node with the character name
+  var nameTag = document.createElement('character-name');
+//create a string with the text version of the name
+  var nameTextNode = document.createTextNode(charName);
+//take name and place it into the node
+  nameTag.appendChild(nameTextNode);
+
+//get the image path
+  var imgPath = firstCharacter.thumbnail.path + '.' + firstCharacter.thumbnail.extension;
+// declare img node
+  var img = document.createElement('img');
+  img.setAttribute('src', imgPath);
+
+//pick up the first character's description
+  var description = firstCharacter.description;
+//declare the node with the character description
+  var descTag = document.createElement('character-description');
+//create a string with the text version of the name
+  var descTextNode = document.createTextNode(description);
+//take description and place it into the node
+  descTag.appendChild(descTextNode);
+
+//set up the name and image for output
+characterContainer.appendChild(nameTag);
+characterContainer.appendChild(img);
+characterContainer.appendChild(descTag);
+
+// put everything out onto the web page  between the inner frame markers
+outputFrame.appendChild(characterContainer);
 });
 
 
@@ -59,20 +94,20 @@ marvel('/characters').then(function(json) {  //returns a promise, needs .then
 //  </top-banner>
 //
 //   <character-frame>
-//
+//    <character>
 //     <character-name>
 //            character.name
 //      </character-name>
 //
-//     <character-picture>
+//     <img>
 //     <img src="thumbnail.jpg" />
-//      </character-picture>
+//      </img>
 //
-//   <character-description>
+//    <character-description>
 //      character.description
 //    </character-description>
-//
-//   </character-frame>
+//   </character>
+//  </character-frame>
 
 
 
