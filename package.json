@@ -1,0 +1,15 @@
+{
+  "name": "marvel",
+  "version": "1.0.0",
+  "description": "This project is a small boilerplate which we can use to connect to Marvel api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  }
+}

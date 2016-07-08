@@ -47,7 +47,7 @@ marvel('/characters').then(function(json) {
   });
 // pick up the first character (object) in the array
   var firstCharacter = singleCharacterArray[0];
-  console.log(firstCharacter);
+//  console.log(firstCharacter);
 // put character-frame tag in the html, this is where eveything will go
   var outputFrame =  document.querySelector('character-frame');
 
@@ -63,10 +63,11 @@ marvel('/characters').then(function(json) {
 //take name and place it into the node
   nameTag.appendChild(nameTextNode);
 
-//get the image path
+//get the image path (address of image)
   var imgPath = firstCharacter.thumbnail.path + '.' + firstCharacter.thumbnail.extension;
 // declare img node
   var img = document.createElement('img');
+//adds img to src and gives it the imgPath value
   img.setAttribute('src', imgPath);
 
 //pick up the first character's description
