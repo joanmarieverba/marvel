@@ -72,6 +72,7 @@ marvel('/characters').then(function(json) {
 
 //pick up the first character's description
   var description = firstCharacter.description;
+  if (description.length === 0){description = "On secret assignment: information limited";}
 //declare the node with the character description
   var descTag = document.createElement('character-description');
 //create a string with the text version of the name
