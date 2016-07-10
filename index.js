@@ -47,7 +47,7 @@ marvel('/characters').then(function(json) {
   });
 // pick up the first character (object) in the array
   var firstCharacter = singleCharacterArray[0];
-//  console.log(firstCharacter);
+
 // put character-frame tag in the html, this is where eveything will go
   var outputFrame =  document.querySelector('character-frame');
 
@@ -55,7 +55,8 @@ marvel('/characters').then(function(json) {
   var characterContainer = document.createElement('character');
 
 //pick up the first character's name
-  var charName = firstCharacter.name;
+  var charName = "Superhero not found";
+  if (firstCharacter !== undefined) {charName = firstCharacter.name;}
 //declare the node with the character name
   var nameTag = document.createElement('character-name');
 //create a string with the text version of the name
@@ -64,15 +65,17 @@ marvel('/characters').then(function(json) {
   nameTag.appendChild(nameTextNode);
 
 //get the image path (address of image)
-  var imgPath = firstCharacter.thumbnail.path + '.' + firstCharacter.thumbnail.extension;
+  var imgPath = "http://jmvtestsite.com/wp-content/uploads/2016/07/starry-sky-389083_1280.jpg"
+  if (firstCharacter !== undefined) {imgPath = firstCharacter.thumbnail.path + '.' + firstCharacter.thumbnail.extension;}
 // declare img node
   var img = document.createElement('img');
 //adds img to src and gives it the imgPath value
   img.setAttribute('src', imgPath);
 
 //pick up the first character's description
-  var description = firstCharacter.description;
-  if (description.length === 0){description = "On secret assignment: information limited";}
+  var description = "";
+  if (firstCharacter !== undefined) {description = firstCharacter.description;}
+  if (description.length === 0 && firstCharacter !== undefined){description = "On secret assignment: information limited";}
 //declare the node with the character description
   var descTag = document.createElement('character-description');
 //create a string with the text version of the name
